@@ -51,7 +51,7 @@ Start:
     include "lib/graphics/print.inc"
     
 Refresh:
-    WaitScanline(480)
+    WaitScanline(512)
     ClearScreen()
     
     
@@ -75,106 +75,164 @@ Refresh:
     
     
     // This is a macro call that sets the necessary a- registers, and then calls the Func_HexDW function (located in src/lib/graphics/print.inc)
-    PrintHexDW(BUF_BASE, 10, 10, PRINT_ADDR, LineFont)
+    PrintHexW(BUF_BASE, 10, 10, PRINT_ADDR, LineFont)
     
     la t0, PRINT_ADDR
-    PrintHexRegDW(BUF_BASE, 10, 20, t0, GoodFont)
+    PrintHexRegW(BUF_BASE, 10, 20, t0, GoodFont)
     
-    la s0, 0xBFC00000
-    PrintHexRegDW(BUF_BASE, 10, (100 + (9 * 0)), s0, GoodFont)
+    la s0, 0xA5000000
+    PrintHexRegW(BUF_BASE, 6, (70 + (9 * 0)), s0, GoodFont)
     addiu s0, s0, 4
-    PrintHexRegDW(BUF_BASE, 10, (100 + (9 * 1)), s0, GoodFont)
+    PrintHexRegW(BUF_BASE, 6, (70 + (9 * 1)), s0, GoodFont)
     addiu s0, s0, 4
-    PrintHexRegDW(BUF_BASE, 10, (100 + (9 * 2)), s0, GoodFont)
+    PrintHexRegW(BUF_BASE, 6, (70 + (9 * 2)), s0, GoodFont)
     addiu s0, s0, 4
-    PrintHexRegDW(BUF_BASE, 10, (100 + (9 * 3)), s0, GoodFont)
+    PrintHexRegW(BUF_BASE, 6, (70 + (9 * 3)), s0, GoodFont)
     addiu s0, s0, 4
-    PrintHexRegDW(BUF_BASE, 10, (100 + (9 * 4)), s0, GoodFont)
+    PrintHexRegW(BUF_BASE, 6, (70 + (9 * 4)), s0, GoodFont)
     addiu s0, s0, 4
-    PrintHexRegDW(BUF_BASE, 10, (100 + (9 * 5)), s0, GoodFont)
+    PrintHexRegW(BUF_BASE, 6, (70 + (9 * 5)), s0, GoodFont)
     addiu s0, s0, 4
-    PrintHexRegDW(BUF_BASE, 10, (100 + (9 * 6)), s0, GoodFont)
+    PrintHexRegW(BUF_BASE, 6, (70 + (9 * 6)), s0, GoodFont)
     addiu s0, s0, 4
-    PrintHexRegDW(BUF_BASE, 10, (100 + (9 * 7)), s0, GoodFont)
+    PrintHexRegW(BUF_BASE, 6, (70 + (9 * 7)), s0, GoodFont)
     addiu s0, s0, 4
-    PrintHexRegDW(BUF_BASE, 10, (100 + (9 * 8)), s0, GoodFont)
+    PrintHexRegW(BUF_BASE, 6, (70 + (9 * 8)), s0, GoodFont)
     addiu s0, s0, 4
-    PrintHexRegDW(BUF_BASE, 10, (100 + (9 * 9)), s0, GoodFont)
+    PrintHexRegW(BUF_BASE, 6, (70 + (9 * 9)), s0, GoodFont)
     addiu s0, s0, 4
-    PrintHexRegDW(BUF_BASE, 10, (100 + (9 * 10)), s0, GoodFont)
+    PrintHexRegW(BUF_BASE, 6, (70 + (9 * 10)), s0, GoodFont)
     addiu s0, s0, 4
-    PrintHexRegDW(BUF_BASE, 10, (100 + (9 * 11)), s0, GoodFont)
+    PrintHexRegW(BUF_BASE, 6, (70 + (9 * 11)), s0, GoodFont)
     addiu s0, s0, 4
-    PrintHexRegDW(BUF_BASE, 10, (100 + (9 * 12)), s0, GoodFont)
+    PrintHexRegW(BUF_BASE, 6, (70 + (9 * 12)), s0, GoodFont)
     addiu s0, s0, 4
-    PrintHexRegDW(BUF_BASE, 10, (100 + (9 * 13)), s0, GoodFont)
+    PrintHexRegW(BUF_BASE, 6, (70 + (9 * 13)), s0, GoodFont)
+    addiu s0, s0, 4
+    PrintHexRegW(BUF_BASE, 6, (70 + (9 * 14)), s0, GoodFont)
+    addiu s0, s0, 4
+    PrintHexRegW(BUF_BASE, 6, (70 + (9 * 15)), s0, GoodFont)
+    addiu s0, s0, 4
+    PrintHexRegW(BUF_BASE, 6, (70 + (9 * 16)), s0, GoodFont)
     
     
-    la s0, 0xBFC000D0
-    PrintHexRegDW(BUF_BASE, 94, (100 + (9 * 0)), s0, GoodFont)
+    la s0, 0xA6000000
+    PrintHexRegW(BUF_BASE, 82, (70 + (9 * 0)), s0, GoodFont)
     addiu s0, s0, 4
-    PrintHexRegDW(BUF_BASE, 94, (100 + (9 * 1)), s0, GoodFont)
+    PrintHexRegW(BUF_BASE, 82, (70 + (9 * 1)), s0, GoodFont)
     addiu s0, s0, 4
-    PrintHexRegDW(BUF_BASE, 94, (100 + (9 * 2)), s0, GoodFont)
+    PrintHexRegW(BUF_BASE, 82, (70 + (9 * 2)), s0, GoodFont)
     addiu s0, s0, 4
-    PrintHexRegDW(BUF_BASE, 94, (100 + (9 * 3)), s0, GoodFont)
+    PrintHexRegW(BUF_BASE, 82, (70 + (9 * 3)), s0, GoodFont)
     addiu s0, s0, 4
-    PrintHexRegDW(BUF_BASE, 94, (100 + (9 * 4)), s0, GoodFont)
+    PrintHexRegW(BUF_BASE, 82, (70 + (9 * 4)), s0, GoodFont)
     addiu s0, s0, 4
-    PrintHexRegDW(BUF_BASE, 94, (100 + (9 * 5)), s0, GoodFont)
+    PrintHexRegW(BUF_BASE, 82, (70 + (9 * 5)), s0, GoodFont)
     addiu s0, s0, 4
-    PrintHexRegDW(BUF_BASE, 94, (100 + (9 * 6)), s0, GoodFont)
+    PrintHexRegW(BUF_BASE, 82, (70 + (9 * 6)), s0, GoodFont)
     addiu s0, s0, 4
-    PrintHexRegDW(BUF_BASE, 94, (100 + (9 * 7)), s0, GoodFont)
+    PrintHexRegW(BUF_BASE, 82, (70 + (9 * 7)), s0, GoodFont)
     addiu s0, s0, 4
-    PrintHexRegDW(BUF_BASE, 94, (100 + (9 * 8)), s0, GoodFont)
+    PrintHexRegW(BUF_BASE, 82, (70 + (9 * 8)), s0, GoodFont)
     addiu s0, s0, 4
-    PrintHexRegDW(BUF_BASE, 94, (100 + (9 * 9)), s0, GoodFont)
+    PrintHexRegW(BUF_BASE, 82, (70 + (9 * 9)), s0, GoodFont)
     addiu s0, s0, 4
-    PrintHexRegDW(BUF_BASE, 94, (100 + (9 * 10)), s0, GoodFont)
+    PrintHexRegW(BUF_BASE, 82, (70 + (9 * 10)), s0, GoodFont)
     addiu s0, s0, 4
-    PrintHexRegDW(BUF_BASE, 94, (100 + (9 * 11)), s0, GoodFont)
+    PrintHexRegW(BUF_BASE, 82, (70 + (9 * 11)), s0, GoodFont)
     addiu s0, s0, 4
-    PrintHexRegDW(BUF_BASE, 94, (100 + (9 * 12)), s0, GoodFont)
+    PrintHexRegW(BUF_BASE, 82, (70 + (9 * 12)), s0, GoodFont)
     addiu s0, s0, 4
-    PrintHexRegDW(BUF_BASE, 94, (100 + (9 * 13)), s0, GoodFont)
+    PrintHexRegW(BUF_BASE, 82, (70 + (9 * 13)), s0, GoodFont)
+    addiu s0, s0, 4
+    PrintHexRegW(BUF_BASE, 82, (70 + (9 * 14)), s0, GoodFont)
+    addiu s0, s0, 4
+    PrintHexRegW(BUF_BASE, 82, (70 + (9 * 15)), s0, GoodFont)
+    addiu s0, s0, 4
+    PrintHexRegW(BUF_BASE, 82, (70 + (9 * 16)), s0, GoodFont)
+    
+    
+    la s0, 0xBFD00000
+    PrintHexRegW(BUF_BASE, 158, (70 + (9 * 0)), s0, GoodFont)
+    addiu s0, s0, 4
+    PrintHexRegW(BUF_BASE, 158, (70 + (9 * 1)), s0, GoodFont)
+    addiu s0, s0, 4
+    PrintHexRegW(BUF_BASE, 158, (70 + (9 * 2)), s0, GoodFont)
+    addiu s0, s0, 4
+    PrintHexRegW(BUF_BASE, 158, (70 + (9 * 3)), s0, GoodFont)
+    addiu s0, s0, 4
+    PrintHexRegW(BUF_BASE, 158, (70 + (9 * 4)), s0, GoodFont)
+    addiu s0, s0, 4
+    PrintHexRegW(BUF_BASE, 158, (70 + (9 * 5)), s0, GoodFont)
+    addiu s0, s0, 4
+    PrintHexRegW(BUF_BASE, 158, (70 + (9 * 6)), s0, GoodFont)
+    addiu s0, s0, 4
+    PrintHexRegW(BUF_BASE, 158, (70 + (9 * 7)), s0, GoodFont)
+    addiu s0, s0, 4
+    PrintHexRegW(BUF_BASE, 158, (70 + (9 * 8)), s0, GoodFont)
+    addiu s0, s0, 4
+    PrintHexRegW(BUF_BASE, 158, (70 + (9 * 9)), s0, GoodFont)
+    addiu s0, s0, 4
+    PrintHexRegW(BUF_BASE, 158, (70 + (9 * 10)), s0, GoodFont)
+    addiu s0, s0, 4
+    PrintHexRegW(BUF_BASE, 158, (70 + (9 * 11)), s0, GoodFont)
+    addiu s0, s0, 4
+    PrintHexRegW(BUF_BASE, 158, (70 + (9 * 12)), s0, GoodFont)
+    addiu s0, s0, 4
+    PrintHexRegW(BUF_BASE, 158, (70 + (9 * 13)), s0, GoodFont)
+    addiu s0, s0, 4
+    PrintHexRegW(BUF_BASE, 158, (70 + (9 * 14)), s0, GoodFont)
+    addiu s0, s0, 4
+    PrintHexRegW(BUF_BASE, 158, (70 + (9 * 15)), s0, GoodFont)
+    addiu s0, s0, 4
+    PrintHexRegW(BUF_BASE, 158, (70 + (9 * 16)), s0, GoodFont)
+    
+    
     
     la s0, 0xA4300004   // MI_VERSION
-    PrintHexRegDW(BUF_BASE, 178, 70, s0, GoodFont)
+    PrintHexRegW(BUF_BASE, 234, 70, s0, GoodFont)
     
-    la s0, 0xA4400018   // SI_STATUS
-    PrintHexRegDW(BUF_BASE, 178, (100 + (9 * 0)), s0, GoodFont)
+    la s0, 0xA4800018   // SI_STATUS
+    PrintHexRegW(BUF_BASE, 234, (81 + (9 * 0)), s0, GoodFont)
     la s0, 0xBFC007FC   // last 4 bytes of PIF RAM
-    PrintHexRegDW(BUF_BASE, 178, (100 + (9 * 1)), s0, GoodFont)
+    PrintHexRegW(BUF_BASE, 234, (81 + (9 * 1)), s0, GoodFont)
     
     la s0, 0xA4600014   // PI Registers starting at PI_DOM1_LAT
-    PrintHexRegDW(BUF_BASE, 178, (102 + (9 * 2)), s0, GoodFont)
+    PrintHexRegW(BUF_BASE, 234, (83 + (9 * 2)), s0, GoodFont)
     addiu s0, s0, 4
-    PrintHexRegDW(BUF_BASE, 178, (102 + (9 * 3)), s0, GoodFont)
+    PrintHexRegW(BUF_BASE, 234, (83 + (9 * 3)), s0, GoodFont)
     addiu s0, s0, 4
-    PrintHexRegDW(BUF_BASE, 178, (102 + (9 * 4)), s0, GoodFont)
+    PrintHexRegW(BUF_BASE, 234, (83 + (9 * 4)), s0, GoodFont)
     addiu s0, s0, 4
-    PrintHexRegDW(BUF_BASE, 178, (102 + (9 * 5)), s0, GoodFont)
+    PrintHexRegW(BUF_BASE, 234, (83 + (9 * 5)), s0, GoodFont)
     
     addiu s0, s0, 4
-    PrintHexRegDW(BUF_BASE, 178, (104 + (9 * 6)), s0, GoodFont)
+    PrintHexRegW(BUF_BASE, 234, (85 + (9 * 6)), s0, GoodFont)
     addiu s0, s0, 4
-    PrintHexRegDW(BUF_BASE, 178, (104 + (9 * 7)), s0, GoodFont)
+    PrintHexRegW(BUF_BASE, 234, (85 + (9 * 7)), s0, GoodFont)
     addiu s0, s0, 4
-    PrintHexRegDW(BUF_BASE, 178, (104 + (9 * 8)), s0, GoodFont)
+    PrintHexRegW(BUF_BASE, 234, (85 + (9 * 8)), s0, GoodFont)
     addiu s0, s0, 4
-    PrintHexRegDW(BUF_BASE, 178, (104 + (9 * 9)), s0, GoodFont)
+    PrintHexRegW(BUF_BASE, 234, (85 + (9 * 9)), s0, GoodFont)
     
     la s0, 0xA4700014   // RI_LATENCY
-    PrintHexRegDW(BUF_BASE, 178, (106 + (9 * 10)), s0, GoodFont)
+    PrintHexRegW(BUF_BASE, 234, (87 + (9 * 10)), s0, GoodFont)
     
-    la s0, 0xA6000000   // first 4 bytes of Cart Domain 1 Address 1
-    PrintHexRegDW(BUF_BASE, 178, (108 + (9 * 11)), s0, GoodFont)
+    la s0, 0xBFC00000   // first 4 bytes of Cart Domain 1 Address 1
+    PrintHexRegW(BUF_BASE, 234, (89 + (9 * 11)), s0, GoodFont)
     
     la t0, 0x12345678
-    la s0, 0xBFD00000   // first 4 bytes of Cart Domain 1 Address 3
+    la s0, 0xBFD00000   // Cart Domain 1 Address 3
     sw t0, 0(s0)
-    PrintHexRegDW(BUF_BASE, 178, (110 + (9 * 12)), s0, GoodFont)
+    PrintHexRegW(BUF_BASE, 234, (91 + (9 * 12)), s0, GoodFont)
+    la t0, 0x9ABCDEF0
+    la s0, 0xBFD00100   // Cart Domain 1 Address 3
+    sw t0, 0(s0)
+    PrintHexRegW(BUF_BASE, 234, (91 + (9 * 13)), s0, GoodFont)
+    la t0, 0x66FFAA99
+    la s0, 0xBFD00104   // Cart Domain 1 Address 3
+    sw t0, 0(s0)
+    PrintHexRegW(BUF_BASE, 234, (91 + (9 * 14)), s0, GoodFont)
     
     
     
@@ -186,8 +244,8 @@ Refresh:
     daddu t2, t2, t1
     daddu t2, t2, t1
     sd t2, 0(t0)
-    PrintHexRegDW(BUF_BASE, 10, 50, t0, GoodFont)
-    PrintHexDW(BUF_BASE, 10+(8*9), 50, 0xA000200C, GoodFont)
+    PrintHexRegW(BUF_BASE, 10, 50, t0, GoodFont)
+    PrintHexW(BUF_BASE, 10+(8*9), 50, 0xA000200C, GoodFont)
     
     
     j Refresh

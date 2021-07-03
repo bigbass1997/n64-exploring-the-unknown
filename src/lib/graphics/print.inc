@@ -2,19 +2,19 @@ j FUNCTIONS_END
 nop
 
 
-// Same as PrintHexDW, but the data location is stored in a register instead of being hardcoded.
+// Same as PrintHexW, but the data location is stored in a register instead of being hardcoded.
 // Assumes the following constants are set:
 //     SCREEN_WIDTH     = Width of the screen in pixels (e.g. 640 for a 640x480 resolution)
 //     BYTES_PER_PIXEL  = Either 2 or 4, for BPP16 or BPP32 respectively
 //     FONT_SPACING     = Number of pixels between each character (can be negative)
 //
-macro PrintHexRegDW(buf_addr, xpos, ypos, data_addr_reg, font_addr) {
+macro PrintHexRegW(buf_addr, xpos, ypos, data_addr_reg, font_addr) {
     addu a1, zero, {data_addr_reg}  // performed first in case data_addr_reg is an a- register
     
     la a0, {buf_addr} + (({xpos} + (7 * (8 + FONT_SPACING))) * BYTES_PER_PIXEL) + (SCREEN_WIDTH * BYTES_PER_PIXEL * {ypos})
     la a2, {font_addr}
     
-    jal Func_HexDW
+    jal Func_HexW
     nop
 }
 
@@ -23,23 +23,23 @@ macro PrintHexRegDW(buf_addr, xpos, ypos, data_addr_reg, font_addr) {
 //     BYTES_PER_PIXEL  = Either 2 or 4, for BPP16 or BPP32 respectively
 //     FONT_SPACING     = Number of pixels between each character (can be negative)
 //
-macro PrintHexDW(buf_addr, xpos, ypos, data_addr, font_addr) {
+macro PrintHexW(buf_addr, xpos, ypos, data_addr, font_addr) {
     la a0, {buf_addr} + (({xpos} + (7 * (8 + FONT_SPACING))) * BYTES_PER_PIXEL) + (SCREEN_WIDTH * BYTES_PER_PIXEL * {ypos})
     la a1, {data_addr}
     la a2, {font_addr}
     
-    jal Func_HexDW
+    jal Func_HexW
     nop
 }
 
 //prints 8 hex characters representing 4 bytes
-Func_HexDW:
+Func_HexW:
     // t9 will be used as a bitmask later
     addiu t9, zero, 1
     dsll t9, t9, 7          // t9 = 0b 00000000 00000000 00000000 10000000
     
     
-    //grab doubleword
+    //grab word (32 bits)
     lwu t8, 0(a1)
     
     addiu t5, zero, 7       // t5 = nibble counter
