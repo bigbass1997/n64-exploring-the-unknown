@@ -2,6 +2,12 @@
 //
 // N64 Header
 
+//dw $AA3FDDDD
+//db $00
+//db $3F
+//db $FF
+//db $FF
+
 db $80
 db $37
 db $12

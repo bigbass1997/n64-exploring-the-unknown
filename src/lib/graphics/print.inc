@@ -2,22 +2,23 @@ j FUNCTIONS_END
 nop
 
 
-// Same as PrintHexW, but the data location is stored in a register instead of being hardcoded.
+// Same as PrintHexW, but the render-buffer and data location is stored in a register instead of being hardcoded.
 // Assumes the following constants are set:
 //     SCREEN_WIDTH     = Width of the screen in pixels (e.g. 640 for a 640x480 resolution)
 //     BYTES_PER_PIXEL  = Either 2 or 4, for BPP16 or BPP32 respectively
 //     FONT_SPACING     = Number of pixels between each character (can be negative)
 //
-macro PrintHexRegW(buf_addr, xpos, ypos, data_addr_reg, font_addr, color) {
-    PrepareHexRegW({buf_addr}, {xpos}, {ypos}, {data_addr_reg}, {font_addr}, {color})
+macro PrintHexRegW(buf_addr_reg, xpos, ypos, data_addr_reg, font_addr, color) {
+    PrepareHexRegW({buf_addr_reg}, {xpos}, {ypos}, {data_addr_reg}, {font_addr}, {color})
     
     jal Func_HexW
     nop
 }
-macro PrepareHexRegW(buf_addr, xpos, ypos, data_addr_reg, font_addr, color) {
+macro PrepareHexRegW(buf_addr_reg, xpos, ypos, data_addr_reg, font_addr, color) {
     addu a1, zero, {data_addr_reg}  // performed first in case data_addr_reg is an a- register
     
-    la a0, {buf_addr} + (({xpos} + (7 * (8 + FONT_SPACING))) * BYTES_PER_PIXEL) + (SCREEN_WIDTH * BYTES_PER_PIXEL * {ypos})
+    la a0, (({xpos} + (7 * (8 + FONT_SPACING))) * BYTES_PER_PIXEL) + (SCREEN_WIDTH * BYTES_PER_PIXEL * {ypos})
+    addu a0, a0, {buf_addr_reg}
     la a2, {font_addr}
     la a3, {color}
 }
