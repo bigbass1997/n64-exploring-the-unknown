@@ -7,12 +7,12 @@ origin 0x00000000
 base 0x80000000
 
 constant fp(s8) // frame pointer (being used as framebuffer pointer)
-constant BUF_BASE(0xA0100000)
-constant BUF_BASE1(0xA0100000)
-constant BUF_BASE2(0xA0230000)
-constant BUF_FLAGS(0xA00FFFFC)
+constant BUF_BASE(0xA0010000)
+constant BUF_BASE1(0xA0010000)
+constant BUF_BASE2(0xA0210000)
+constant BUF_FLAGS(0xA000FFFC)
 
-constant SP_STORAGE(0xA00FFF00)
+constant SP_STORAGE(0xA000FF00)
 
 constant SCREEN_WIDTH(640)
 constant SCREEN_HEIGHT(480)
@@ -68,6 +68,7 @@ macro SetupSwapBuffer() {
     la fp, BUF_BASE1
     la t0, 0xA4400004 // VI_ORIGIN
     sw fp, 0(t0)
+    la fp, BUF_BASE2
 }
 
 macro SwapBuffer() {
