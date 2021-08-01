@@ -167,6 +167,7 @@ constant MI_INTR_MASK($0C) // $0430000C..$0430000F MI: Interrupt Mask Register
 
 constant VI_BASE($A440)         // $04400000..$04400037 Video Interface (VI) Base Register
 constant VI_STATUS($00)         // $04400000..$04400003 VI: Status/Control Register
+constant VI_CTRL(VI_STATUS)
 constant VI_ORIGIN($04)         // $04400004..$04400007 VI: Origin Register
 constant VI_WIDTH($08)          // $04400008..$0440000B VI: Width Register
 constant VI_V_INTR($0C)         // $0440000C..$0440000F VI: Vertical Interrupt Register

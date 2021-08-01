@@ -7,12 +7,12 @@ origin 0x00000000
 base 0x80000000
 
 constant fp(s8) // frame pointer (being used as framebuffer pointer)
-constant BUF_BASE(0xA0010000)
-constant BUF_BASE1(0xA0010000)
-constant BUF_BASE2(0xA0210000)
-constant BUF_FLAGS(0xA000FFFC)
+constant BUF_BASE(0xA0100000)
+constant BUF_BASE1(0xA0100000)
+constant BUF_BASE2(0xA0230000)
+constant BUF_FLAGS(0xA03FFFFC)
 
-constant SP_STORAGE(0xA000FF00)
+constant SP_STORAGE(0xA03FFF00)
 
 constant SCREEN_WIDTH(640)
 constant SCREEN_HEIGHT(480)
@@ -20,7 +20,7 @@ constant BYTES_PER_PIXEL(4)
 constant FONT_SPACING(1)
 
 // RDRAM Addresses for printable values
-constant PRINT_ADDR(0xA0002000)
+constant PRINT_ADDR(0xA03FFE00)
 
 include "lib/n64/header.asm"
 include "lib/n64/n64.inc"
@@ -86,12 +86,14 @@ macro SwapBuffer() {
     
 //CurrentIs2
     la fp, BUF_BASE1
+    SetVI_NTSC_HPF2_Field2()
     
     j SwapB_End
     nop
     
 SwapB_CurrentIs1:
     la fp, BUF_BASE2
+    SetVI_NTSC_HPF2_Field1()
     
     
 SwapB_End:
@@ -120,8 +122,55 @@ WFS_Loop:
 }
 
 
+macro SWOffset(value, temp_reg, offset, base_reg) {
+    la {temp_reg}, {value}
+    sw {temp_reg}, {offset}({base_reg})
+}
+
+macro SetVI_NTSC_HPF2_Field1() {
+    la t0, 0xA4400000 // VI_BASE
+    
+    SWOffset(0x0000324F, t1, VI_CTRL, t0)
+    SWOffset(BUF_BASE1, t1, VI_ORIGIN, t0)
+    SWOffset(0x00000280, t1, VI_WIDTH, t0)
+    SWOffset(0x00000208, t1, VI_V_INTR, t0)
+    SWOffset(0x03e52239, t1, VI_TIMING, t0)
+    SWOffset(0x0000020C, t1, VI_V_SYNC, t0)
+    SWOffset(0x00000C15, t1, VI_H_SYNC, t0)
+    SWOffset(0x0C150C15, t1, VI_H_SYNC_LEAP, t0)
+    SWOffset(0x006C02EC, t1, VI_H_VIDEO, t0)
+    SWOffset(0x002301FD, t1, VI_V_VIDEO, t0)
+    SWOffset(0x000E0204, t1, VI_V_BURST, t0)
+    SWOffset(0x00000400, t1, VI_X_SCALE, t0)
+    SWOffset(0x02000800, t1, VI_Y_SCALE, t0)
+    
+    // SWOffset(0x00000000, t1, VI_V_CURRENT_LINE, t0) // Clears interrupt
+}
+
+macro SetVI_NTSC_HPF2_Field2() {
+    la t0, 0xA4400000 // VI_BASE
+    
+    SWOffset(0x0000324F, t1, VI_CTRL, t0)
+    SWOffset(BUF_BASE2, t1, VI_ORIGIN, t0)
+    SWOffset(0x00000280, t1, VI_WIDTH, t0)
+    SWOffset(0x00000208, t1, VI_V_INTR, t0)
+    SWOffset(0x03e52239, t1, VI_TIMING, t0)
+    SWOffset(0x0000020C, t1, VI_V_SYNC, t0)
+    SWOffset(0x00000C15, t1, VI_H_SYNC, t0)
+    SWOffset(0x0C150C15, t1, VI_H_SYNC_LEAP, t0)
+    SWOffset(0x006C02EC, t1, VI_H_VIDEO, t0)
+    SWOffset(0x002501FF, t1, VI_V_VIDEO, t0)        // diff
+    SWOffset(0x000E0204, t1, VI_V_BURST, t0)
+    SWOffset(0x00000400, t1, VI_X_SCALE, t0)
+    SWOffset(0x02000800, t1, VI_Y_SCALE, t0)
+    
+    // SWOffset(0x00000000, t1, VI_V_CURRENT_LINE, t0) // Clears interrupt
+}
+
+
 Start:
-    ScreenNTSC(SCREEN_WIDTH, SCREEN_HEIGHT, BPP32|INTERLACE|AA_MODE_3, BUF_BASE1)
+    // ScreenNTSC(SCREEN_WIDTH, SCREEN_HEIGHT, BPP32|AA_MODE_3, BUF_BASE1)
+    SetVI_NTSC_HPF2_Field1()
     SetupSwapBuffer()
     SetupISR()
     
@@ -131,9 +180,9 @@ Start:
 	sw t1, PIF_CTRL(t0)
 	
     
-    la t6, 0xA000C0F0
-	la t7, BUF_BASE
-    sw t7, 0(t6)
+    //la t6, 0xA000C0F0
+	//la t7, BUF_BASE
+    //sw t7, 0(t6)
     
     la t0, PRINT_ADDR
     sw zero, 0(t0)
@@ -166,11 +215,16 @@ Refresh:
     PrintHexRegW(fp, 476, 30, t0, GoodFont, COLOR_CYAN)
     la t0, PRINT_ADDR + 8 + 4
     PrintHexRegW(fp, 476+(8*9), 30, t0, GoodFont, COLOR_RED)
-    //PrintHexW(BUF_BASE, 476+(8*9), 30, 0xA000200C, GoodFont, COLOR_WHITE)
     
     
+    // Print VI_ORIGIN
+    la t0, 0xA4400004
+    PrintHexRegW(fp, 476, 42, t0, GoodFont, 0xFF00FFFF)
     
-    
+    // Print fp CPU register
+    la t0, PRINT_ADDR + 8 + 4 + 4
+    sw fp, 0(t0)
+    PrintHexRegW(fp, 476, 54, t0, GoodFont, 0xFF00FFFF)
     
     
     // Column 1
